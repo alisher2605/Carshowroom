@@ -11,6 +11,7 @@ This is a project for managing simple car showroom system. The application is ca
 4. Spring security and JWT
 5. Project lombok
 6. Swagger 2 documentation
+7. Exception handelling 
 
 ## Entities 
 #### This project includes 3 main entities for interaction with each other
