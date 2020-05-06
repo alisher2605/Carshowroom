@@ -25,4 +25,4 @@ This is a project for managing simple car showroom system. The application is ca
 1. VehicleManufacturer
 2. CarShowroom
 ## Entity relationships
-![](CarShowroomERjpg.jpg)
+![](CarShowroomER.png)
