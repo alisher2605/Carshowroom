@@ -20,14 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("api/auth/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/vehicles").permitAll()
-                .antMatchers("/api/vehicles/find/").hasAnyAuthority("member","admin")
-                .antMatchers("/api/users/create").permitAll()
-                .antMatchers("/api/manufacturers").permitAll()/*hasAnyAuthority("VIP", "admin")*/
-                .antMatchers("/api/manufacturers/create").permitAll()
+                .antMatchers("/api/vehicles/find/").hasAnyAuthority("VIP", "member","admin")
+                .antMatchers("/api/vehicles/create").permitAll()
+                .antMatchers("/api/users/create").hasAnyAuthority("admin")
+                .antMatchers("/api/manufacturers").permitAll()
+                .antMatchers("/api/manufacturers/create").hasAnyAuthority("VIP", "member","admin")
                 .antMatchers("/api/vehicles/available").hasAnyAuthority("VIP", "member")
                 .antMatchers("/api/users").hasAuthority("admin")
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

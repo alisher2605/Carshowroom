@@ -29,6 +29,7 @@ public class GlobalExceptionController {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<ExceptionData> NotFoundException(NotFoundException e) {
         log.error("Exception handled: "+ e.getMessage(), e);
@@ -43,8 +44,7 @@ public class GlobalExceptionController {
     public ResponseEntity<ExceptionData> handleAnyException(Exception e) {
         log.error("Exception handled: "+ e.getMessage(), e);
         ExceptionData errorResponse = new ExceptionData("INTERNAL_SERVER_ERROR",
-                "Server down. Contact with administrator to learn details" );
-
+                "Server down. Contact administrator to learn details" );
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

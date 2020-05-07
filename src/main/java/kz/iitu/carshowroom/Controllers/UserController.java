@@ -1,5 +1,6 @@
 package kz.iitu.carshowroom.Controllers;
 
+import io.swagger.annotations.ApiOperation;
 import kz.iitu.carshowroom.Entity.Client;
 import kz.iitu.carshowroom.Entity.Vehicle;
 import kz.iitu.carshowroom.Repositories.ClientRepository;
@@ -22,42 +23,70 @@ public class UserController  {
     @Autowired
     ClientServiceImpl clientService;
 
+    @ApiOperation(value = "Returns list of users")
     @GetMapping("")
     public List<Client> clientList(){
         return clientService.getAllClients();
     }
 
+    @ApiOperation(value = "Returns user with entered id")
     @GetMapping("/{id}")
-    public Client clientListById(@PathVariable("id") long id){
+    public Client clientListById(@PathVariable("id") Long id){
+        if (id == null){
+            throw new RuntimeException("Id must not be null");
+        }
         return clientService.findClientById(id);
     }
-
+    @ApiOperation(value = "Returns users with membership")
     @GetMapping("/membership")
     public Client memberClient(){
         return clientRepository.findClientByHasMembership();
     }
 
-   // api/users/find/?name=aleisher
+    @ApiOperation(value = "Returns user with entered username")
+   // api/users/find/?username=aleisher
     @GetMapping("/find/")
-    public void findClientByUserName(@RequestParam(name = "name") String username){
-         clientService.loadUserByUsername(username);
-    }
+    public void findClientByUserName(@RequestParam(name = "username") String username){
+        if (username == null){
+            throw new RuntimeException("Username should not be null");
+        }
+        else{
+            clientService.loadUserByUsername(username);
+        }
 
+    }
+    @ApiOperation(value = "Creates new user")
     @PostMapping("/create")
     public void newClient(@RequestBody Client client){
-         clientService.creatClient(client);
+        if (client == null){
+            throw new RuntimeException("Client object must not be null");
+        }
+        else{
+            clientService.creatClient(client);
+        }
     }
-
+    @ApiOperation(value = "Updates user with entered id")
     @PutMapping("/{id}")
-    public void   updateClient (@PathVariable long id, @RequestBody Client  client){
-         clientService.updateClient(id, client);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public void   updateClient (@PathVariable Long id, @RequestBody Client  client){
+        if (client == null || id == null){
+            throw new RuntimeException("Client information and id must not be null");
+        }
+        else{
+            clientService.updateClient(id, client);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        }
     }
 
-
+    @ApiOperation(value = "Removes user with entered id")
     @DeleteMapping("/{id}")
-    public void   removeClient (@PathVariable("id") long id){
-        clientService.deleteClient(id);
+    public void   removeClient (@PathVariable("id") Long id){
+        if (id == null){
+            throw new RuntimeException("Id must not be null");
+        }
+        else{
+            clientService.deleteClient(id);
+        }
+
     }
 
     @GetMapping("/make")

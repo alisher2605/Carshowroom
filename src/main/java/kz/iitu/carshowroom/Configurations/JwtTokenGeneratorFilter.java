@@ -26,8 +26,6 @@ public class JwtTokenGeneratorFilter extends UsernamePasswordAuthenticationFilte
 
     public JwtTokenGeneratorFilter(AuthenticationManager authManager) {
         this.authManager = authManager;
-
-
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth/**", "POST"));
     }
 
