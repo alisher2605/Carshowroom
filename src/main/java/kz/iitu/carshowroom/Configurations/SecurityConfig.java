@@ -29,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/manufacturers/create").hasAnyAuthority("VIP", "member","admin")
                 .antMatchers("/api/vehicles/available").hasAnyAuthority("VIP", "member")
                 .antMatchers("/api/users").hasAuthority("admin")
-
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
