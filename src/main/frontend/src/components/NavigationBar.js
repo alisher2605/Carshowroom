@@ -12,10 +12,9 @@ export default function NavigationBar() {
             </Link>
 
             <Nav className="mr-auto">
-                <Link to={"/"} className="navbar-brand">Home</Link>
-                <Link to={"manufacturers"} className="navbar-brand">Manufacturers</Link>
-                <Link to={"cars"} className="navbar-brand">Cars</Link>
-                <Link to={"clients"} className="navbar-brand">Clients</Link>
+            <Link to={"Vehicle"}  className="navbar-brand">Vehicle</Link>
+            <Link to={"AddVehicle"}  className="navbar-brand">Add vehicle</Link>
+            <Link to={"Manufacturer"}  className="navbar-brand">Manufacturers</Link>
             </Nav>
         </Navbar>
     );
