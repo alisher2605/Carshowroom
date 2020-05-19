@@ -1,36 +1,63 @@
 import React, {Component} from 'react';
 import {Card,Form, Button, Col} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSave} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faUndo} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 class AddVehicle extends Component{
     constructor(props){
     super(props);
-    this.state = {model:'', price:'',year:'',quantity:'', state:'',type:'',set:'',color:''};
+    this.state = this.initialState;
     this.vehicleChange = this.vehicleChange.bind(this);
     this.submitVehicle = this.submitVehicle.bind(this);
     }
 
-    submitVehicle(event){
-        alert('Model: ' + this.state.model + ', Price: ' + this.state.price
-        + ', Production year: ' + this.state.year + ', Quantity: ' + this.state.quantity
-        + ', State: ' + this.state.state + ', Type: ' + this.state.type +
-        ', Set: ' + this.state.set + ', Color: ' + this.state.color
-        );
-        event.preventDefault();
+    initialState = {
+        model:'', price:'',year:'',quantity:'', state:'',type:'',set:'',color:''
     }
 
-    vehicleChange(event){
+    submitVehicle = event =>{
+
+        event.preventDefault();
+
+        const vehicle = {
+            model:  this.state.model,
+            price: this.state.price,
+            productionYear: this.state.year,
+            quantity: this.state.quantity,
+            state: this.state.state,
+            transmissionType:  this.state.type,
+            vehicleSet: this.state.set,
+            color: this.state.color
+        };
+            axios.post("http://localhost:8080/api/vehicles/create", vehicle)
+                .then(response => {
+                    if (response.data != null){
+                        this.setState(this.initialState)
+                        alert("Vehicle added successfully")
+                    }
+                })
+
+    }
+
+
+    resetVehicle = () => {
+        this.setState(() => this.initialState)
+    }
+
+    vehicleChange = event =>{
         this.setState({
                 [event.target.name]:event.target.value
         });
     }
 
+
     render() {
+        const {model, price, year, quantity, state, type, set, color} = this.state;
         return(
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header>Add Vehicle</Card.Header>
-                <Form onSubmit={this.submitVehicle} id="vehicleFormId">
+                <Form onReset={this.resetVehicle} onSubmit={this.submitVehicle} id="vehicleFormId">
 
                 <Card.Body>
                 <Form.Row     /* Form 1 */>
@@ -38,9 +65,9 @@ class AddVehicle extends Component{
                     <Form.Label>Model</Form.Label>
                     <Form.Control 
                     type="text" name="model" 
-                    placeholder="Enter Model" required
+                    placeholder="Enter Model" required autoComplete="off"
                     className={"bg-dark text-white"}
-                    value={this.state.model}
+                    value={model}
                     onChange={this.vehicleChange} 
                     />
 
@@ -48,17 +75,17 @@ class AddVehicle extends Component{
 
                 <Form.Group as = {Col} controlId="formGridTitle">
                     <Form.Label>Price</Form.Label>
-                    <Form.Control type="text" name="price" placeholder="Enter price" required
+                    <Form.Control type="text" name="price" placeholder="Enter price" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.price}
+                       value={price}
                        onChange={this.vehicleChange} 
                     />
                 </Form.Group>
                 <Form.Group as = {Col}    controlId="formGridTitle" >
                     <Form.Label>Production Year</Form.Label>
-                    <Form.Control type="text" name="year" placeholder="Enter year" required
+                    <Form.Control type="text" name="year" placeholder="Enter year" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.year}
+                       value={year}
                        onChange={this.vehicleChange} 
                     />
                 </Form.Group>
@@ -67,26 +94,26 @@ class AddVehicle extends Component{
                 <Form.Row /* Form 2 */>            
                 <Form.Group as = {Col} controlId="formGridTitle">
                     <Form.Label>Quantity</Form.Label>
-                    <Form.Control type="text" name="quantity" placeholder="Enter quantity" required
+                    <Form.Control type="text" name="quantity" placeholder="Enter quantity" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.quantity}
+                       value={quantity}
                        onChange={this.vehicleChange} 
                     />
                 </Form.Group>
                 <Form.Group as = {Col} controlId="formGridTitle">
                     <Form.Label>State</Form.Label>
-                    <Form.Control type="text" name="state" placeholder="Enter state" required
+                    <Form.Control type="text" name="state" placeholder="Enter state" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.state}
+                       value={state}
                        onChange={this.vehicleChange} 
                     />
                 </Form.Group>
 
                 <Form.Group as = {Col} controlId="formGridTitle">
                     <Form.Label>Transmission Type</Form.Label>
-                    <Form.Control type="text" name="type" placeholder="Enter yransmission type" required
+                    <Form.Control type="text" name="type" placeholder="Enter yransmission type" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.type}
+                       value={type}
                        onChange={this.vehicleChange} 
                     />
 
@@ -96,17 +123,17 @@ class AddVehicle extends Component{
                 <Form.Row /* Form 3 */>            
                 <Form.Group as = {Col} controlId="formGridTitle">
                     <Form.Label>Set</Form.Label>
-                    <Form.Control type="text" name="set" placeholder="Enter set" required
+                    <Form.Control type="text" name="set" placeholder="Enter set" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.set}
+                       value={set}
                        onChange={this.vehicleChange} 
                     />
                 </Form.Group>
                 <Form.Group as = {Col} controlId="formGridTitle">
                     <Form.Label>Color</Form.Label>
-                    <Form.Control type="text" name="color" placeholder="Enter color" required
+                    <Form.Control type="text" name="color" placeholder="Enter color" required autoComplete="off"
                        className={"bg-dark text-white"}
-                       value={this.state.color}
+                       value={color}
                        onChange={this.vehicleChange} 
                     />
                 </Form.Group>
@@ -117,7 +144,10 @@ class AddVehicle extends Component{
                 <Card.Footer style={{"textAlign":"right"}}>
                 <Button size="sm" variant="success" type="submit">
                < FontAwesomeIcon icon={faSave}/> Submit
-                </Button>
+                </Button>{' '}
+                    <Button size="sm" variant="info" type="reset">
+                        < FontAwesomeIcon icon={faUndo}/> Reset
+                    </Button>
                 </Card.Footer>
                 </Form>
             </Card>
