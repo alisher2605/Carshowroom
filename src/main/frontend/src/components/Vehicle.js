@@ -20,6 +20,18 @@ class Vehicle extends Component{
             });
     }
 
+    deleteVehicle = (id) =>{
+        axios.delete("http://localhost:8080/api/vehicles/" + id)
+            .then(response => {
+                if (response.data != null){
+                    alert("Deleted!")
+                    this.setState({
+                        vehicles: this.state.vehicles.filter(vehicle => vehicle.vehicleId !== id)
+                    })
+                }
+            })
+    };
+
     render() {
         return(
             <Card className={"border border-dark bg-dark text-white"}>
@@ -44,10 +56,10 @@ class Vehicle extends Component{
   <tbody>
   {     this.state.vehicles.length ===0 ?
       <tr align="center">
-          <td colSpan="9">{this.state.vehicles.length}</td>
+          <td colSpan="10">{this.state.vehicles.length}</td>
       </tr>:
         this.state.vehicles.map((vehicle) =>(
-            <tr key={vehicle.id}>
+            <tr key={vehicle.vehicleId}>
                 <td>{vehicle.vehicleId}</td>
                 <td>{vehicle.model}</td>
                 <td>{vehicle.price}</td>
@@ -60,7 +72,7 @@ class Vehicle extends Component{
                 <td>
                  <ButtonGroup>
                      <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit} /></Button>{''}
-                     <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faTrash} /></Button>
+                     <Button size="sm" variant="outline-danger" onClick={this.deleteVehicle.bind(this, vehicle.vehicleId)}><FontAwesomeIcon icon={faTrash} /></Button>
                  </ButtonGroup>
                     </td>
             </tr>
