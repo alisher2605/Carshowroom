@@ -1,17 +1,17 @@
 package kz.iitu.carshowroom.Controllers;
 
 import io.swagger.annotations.ApiOperation;
-import kz.iitu.carshowroom.Entity.Manufacturer;
 import kz.iitu.carshowroom.Entity.Vehicle;
 import kz.iitu.carshowroom.Repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/vehicles")
+@CrossOrigin(origins = "http://localhost:3000")
 public class VehicleController {
     @Autowired
     VehicleRepository vehicleRepository;
