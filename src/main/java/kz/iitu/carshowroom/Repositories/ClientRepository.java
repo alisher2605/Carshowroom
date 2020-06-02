@@ -13,6 +13,5 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
    Client findClientByUsername(String name);
 
-    @Query("select c from Client c where c.hasMembership=true")
-    Client findClientByHasMembership();
+
 }

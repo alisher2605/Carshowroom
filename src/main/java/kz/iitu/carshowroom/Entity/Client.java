@@ -29,7 +29,6 @@ public class Client implements UserDetails {
     private String password;
     private int drivingExperience;
     private int drivingLicenceNo;
-    private boolean hasMembership;
     @ManyToMany(mappedBy = "clients", fetch = FetchType.LAZY)
     private List<Vehicle> vehicleList;
 
@@ -73,7 +72,6 @@ public class Client implements UserDetails {
                 ", password='" + password + '\'' +
                 ", drivingExperience=" + drivingExperience +
                 ", drivingLicenceNo=" + drivingLicenceNo +
-                ", hasMembership=" + hasMembership +
                 '}';
     }
 }

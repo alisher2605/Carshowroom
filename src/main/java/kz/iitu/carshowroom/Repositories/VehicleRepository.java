@@ -11,4 +11,9 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     List<Vehicle> findAvailableVehicle();
 
       void findVehicleByModel(String modelName);
+
+    @Query("select v.quantity from Vehicle v where v.quantity>0")
+    Vehicle findVehicleByVehicleId(long id);
+
+
 }

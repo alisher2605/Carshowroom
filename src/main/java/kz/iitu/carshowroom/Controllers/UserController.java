@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController  {
     @Autowired
     ClientRepository clientRepository;
@@ -37,14 +38,10 @@ public class UserController  {
         }
         return clientService.findClientById(id);
     }
-    @ApiOperation(value = "Returns users with membership")
-    @GetMapping("/membership")
-    public Client memberClient(){
-        return clientRepository.findClientByHasMembership();
-    }
+
 
     @ApiOperation(value = "Returns user with entered username")
-   // api/users/find/?username=aleisher
+    // api/users/find/?username=aleisher
     @GetMapping("/find/")
     public void findClientByUserName(@RequestParam(name = "username") String username){
         if (username == null){
@@ -55,7 +52,7 @@ public class UserController  {
         }
 
     }
-    @ApiOperation(value = "Creates new user")
+/*    @ApiOperation(value = "Creates new user")
     @PostMapping("/create")
     public void newClient(@RequestBody Client client){
         if (client == null){
@@ -64,7 +61,13 @@ public class UserController  {
         else{
             clientService.creatClient(client);
         }
+    }*/
+
+    @PostMapping("/create")
+    public void newClient(@RequestBody Client client){
+        clientRepository.saveAndFlush(client);
     }
+
     @ApiOperation(value = "Updates user with entered id")
     @PutMapping("/{id}")
     public void   updateClient (@PathVariable Long id, @RequestBody Client  client){
@@ -91,7 +94,7 @@ public class UserController  {
 
     @GetMapping("/make")
     public void createClientByUsernamePassword(String name,
-                                           String password){
+                                               String password){
         Client client = new Client();
         client.setUsername(name);
         client.setPassword(password);

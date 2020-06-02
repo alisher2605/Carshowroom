@@ -14,7 +14,9 @@ export default function NavigationBar() {
             <Nav className="mr-auto">
             <Link to={"Vehicle"}  className="navbar-brand">Vehicle</Link>
             <Link to={"AddVehicle"}  className="navbar-brand">Add vehicle</Link>
-            <Link to={"Manufacturer"}  className="navbar-brand">Manufacturers</Link>
+            <Link to={"Login"}  className="navbar-brand">Login</Link>
+                <Link to={"Clients"}className="navbar-brand">Clients</Link>
+                <Link to={"AddClient"}className="navbar-brand">Add clients</Link>
             </Nav>
         </Navbar>
     );

@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiOperation;
 import kz.iitu.carshowroom.Entity.Vehicle;
 import kz.iitu.carshowroom.Repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -43,23 +46,33 @@ public class VehicleController {
     }
 
     @ApiOperation(value = "Creates new vehicle")
-    @PostMapping("/create")
+    @PostMapping("")
     public Vehicle newVehicle(@RequestBody Vehicle vehicle){
         return vehicleRepository.saveAndFlush(vehicle);
     }
-
+/*
     @ApiOperation(value = "Updates vehicle with entered id")
     @PutMapping("/{id}")
     public Vehicle updateVehicle(@PathVariable long id, @RequestBody Vehicle vehicle){
         vehicle.setVehicleId(id);
         return vehicleRepository.saveAndFlush(vehicle);
-    }
+    }*/
 
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Vehicle> updateMedicine(@RequestBody Vehicle vehicle){
+        return new ResponseEntity<>(vehicleRepository.saveAndFlush(vehicle), HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public Vehicle removeVehicle(@PathVariable("id") long id){
         Vehicle vehicle = this.vehicleListById(id);
         vehicleRepository.delete(vehicle);
         return vehicle;
+    }
+
+    @PutMapping("purchase/{id}")
+    public Vehicle purchaseVehicle(@PathVariable long id, @RequestBody Vehicle vehicle){
+        ;
+        return  vehicle;
     }
 }

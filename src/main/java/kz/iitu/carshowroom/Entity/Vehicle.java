@@ -30,11 +30,10 @@ public class Vehicle {
 
 
 
-    @JsonIgnore
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
+
     private List<VehicleType>vehicleTypes;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable (name = "VehicleManufacturer",
             joinColumns = {@JoinColumn(name = "vehicleId", referencedColumnName = "vehicleId")},
@@ -42,7 +41,6 @@ public class Vehicle {
     )
     private List<Manufacturer> manufacturers;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable (name = "CarShowroom",
             joinColumns = {@JoinColumn(name = "vehicleId", referencedColumnName = "vehicleId")},

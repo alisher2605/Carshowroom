@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Card, Table, Image, ButtonGroup, Button, InputGroup, FormControl} from 'react-bootstrap';
+import {Card, Table, Image, ButtonGroup, Button, InputGroup,  Control} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
+import {faList, faTrash, faEdit, faShoppingCart} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 class Vehicle extends Component{
     constructor(props) {
@@ -71,8 +72,9 @@ class Vehicle extends Component{
                 <td>{vehicle.color}</td>
                 <td>
                  <ButtonGroup>
-                     <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit} /></Button>{''}
+                     <Link to={"AddVehicle/" + vehicle.vehicleId}  className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit} /></Link>{''}
                      <Button size="sm" variant="outline-danger" onClick={this.deleteVehicle.bind(this, vehicle.vehicleId)}><FontAwesomeIcon icon={faTrash} /></Button>
+                     <Button size="sm"  variant="success" onClick={this.deleteVehicle.bind(this, vehicle.vehicleId)}><FontAwesomeIcon icon={faShoppingCart} /></Button>
                  </ButtonGroup>
                     </td>
             </tr>
